@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#174c41">
+  <meta name="description" content="A personal physiotherapy study desk, mapped to Adelaide University's 2027 honours degree. Recall, reflect and grow.">
+  <title>Physio Study Desk</title>
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./premium.css">
+  <link rel="preload" href="./assets/fonts/Newsreader-400.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="./assets/fonts/DMSans-400.ttf" as="font" type="font/ttf" crossorigin>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to study content</a>
+  <header class="site-header">
+    <a class="wordmark" href="#today" aria-label="Study Desk home">physio<span class="wordmark-divider">/</span><span class="wordmark-label">STUDY DESK</span></a>
+    <nav aria-label="Main navigation" id="nav"></nav>
+    <button class="avatar" data-action="settings" aria-label="Open settings">B</button>
+  </header>
+  <div class="workspace">
+    <main id="main" tabindex="-1"></main>
+    <footer class="site-footer"><span>Independent study companion.</span><span class="saved-status" id="save-status">Saved on this device</span><details class="about-desk"><summary>About this desk</summary><p>Not an official Adelaide University product. Supplementary practice material; check your course outline for assessed content. Keep patient information out of this app.</p></details></footer>
+  </div>
+  <div class="toast" role="status" aria-live="polite" id="toast"></div>
+  <dialog id="modal" aria-labelledby="modal-title"></dialog>
+  <script type="module" src="./app.mjs"></script>
+</body>
+</html>
