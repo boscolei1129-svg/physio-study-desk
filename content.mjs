@@ -1,6 +1,7 @@
+import {studyNotes,noteSources,extraNoteReferences} from './notes-content.mjs';
 import {anatomyCards,anatomyLessons,anatomySources} from './anatomy100.mjs';
 export {anatomyOutcomes} from './anatomy100.mjs';
-export const verifiedOn = '18 November 2026';
+export const verifiedOn = '19 November 2026';
 const au = 'https://adelaide.edu.au/study/courses/';
 const os = 'https://openstax.org/books/anatomy-and-physiology-2e/pages/';
 export const sources = [
@@ -36,7 +37,7 @@ export const sources = [
   ['icf','WHO • International Classification of Functioning, Disability and Health','https://www.who.int/standards/classifications/international-classification-of-functioning-disability-and-health','Framework','Body functions and structures, activities, participation and context.'],
   ['learning','Dunlosky et al. (2013) • Learning techniques review','https://pubmed.ncbi.nlm.nih.gov/26173288/','Learning research','Practice testing and distributed practice underpin this app. Its exact scheduling intervals are a practical design choice.'],
   ['github','GitHub Docs • Creating a GitHub Pages site','https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site','Hosting','Static hosting; browser data is not automatically synchronised to GitHub.']
-].map(([id,title,url,type,description])=>({id,title,url,type,description})).concat(anatomySources);
+].map(([id,title,url,type,description])=>({id,title,url,type,description})).concat(anatomySources,noteSources);
 
 export const courses = [
   ['BIOL1006','Human Anatomy 100',1,1,6,'Anatomy','Gross and surface anatomy, directional language, tissues, bones, joints, muscles and organs.','Name structures precisely|Connect location with function|Practise respectful surface anatomy'],
@@ -188,7 +189,7 @@ export const lessons = [
   ['REHB1000','Moments explain turning effects','A force’s turning effect depends on both its size and the perpendicular distance from its line of action to the axis. Draw the line of action before measuring the moment arm.','Calculate the moment of a 30 N force acting at a perpendicular distance of 0.20 m. Answer: 6 N·m. Explain what changes if the distance halves.','torque'],
   ['BIOL1018','Separate digestion from absorption','Food must be broken down and moved through the gut, but digestion is not the same as absorption. Mechanical processing increases access for chemical digestion; absorption transfers products across the intestinal lining.','Trace a fictional mouthful through the digestive tract, naming one process at each major stage.','digest'],
   ['BIOL1006','Bone has a structure worth sketching','Identify the shaft and ends of a long bone, distinguish compact from trabecular organisation, and locate the articular surface. Relate each structural feature to its role.','Draw a long bone from memory and label diaphysis, epiphyses, compact bone, spongy bone and articular cartilage.','bone']
-].map(([course,title,body,practice,source],i)=>({id:`lesson-${i+1}`,course,title,body,practice,source})).concat(anatomyLessons);
+].map(([course,title,body,practice,source],i)=>({id:`lesson-${i+1}`,course,title,body,practice,source})).concat(anatomyLessons).map(l=>({...l,chapter:studyNotes[l.id],practice:studyNotes[l.id]?.match(/^\? (.+)$/m)?.[1]||l.practice,references:[...new Set([...(l.references||[]),...(extraNoteReferences[l.id]||[])])]}));
 
 export const stations = [
   {id:'consent',course:'REHB1000',title:'Introduce yourself and obtain consent',minutes:4,brief:'A fictional peer has agreed to hear about a simple movement observation in class. Explain your student role and invite informed, voluntary participation. No physical procedure is required.',source:'conduct',checks:['Introduce yourself and your student role','Explain the activity in plain language','Explain choices, including declining or stopping','Invite questions and check understanding','Ask for voluntary agreement before proceeding'],debrief:'Which phrase made it easiest for the person to ask a question or say no?'},
