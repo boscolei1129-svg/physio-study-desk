@@ -1,0 +1,24 @@
+/* Short, finite motion only. Nothing loops, flashes or delays interaction. */
+@media (prefers-reduced-motion:no-preference){
+  @keyframes desk-enter{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes desk-reveal{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+  .collection-head,.page-heading{animation:desk-enter 300ms cubic-bezier(.2,.65,.3,1) both}
+  .collection-session{animation:desk-enter 380ms cubic-bezier(.2,.65,.3,1) 35ms both}
+  .collection-course-heading{animation:desk-enter 340ms cubic-bezier(.2,.65,.3,1) 70ms both}
+  .catalogue-row{animation:desk-enter 320ms cubic-bezier(.2,.65,.3,1) both;animation-delay:90ms}
+  .catalogue-row:nth-child(2){animation-delay:125ms}.catalogue-row:nth-child(3){animation-delay:160ms}.catalogue-row:nth-child(4){animation-delay:195ms}
+  .recall-shell,main>.panel,main>.empty,main>.two-cols{animation:desk-enter 280ms cubic-bezier(.2,.65,.3,1) both}
+  .lesson-card:nth-child(-n+4){animation:desk-enter 260ms cubic-bezier(.2,.65,.3,1) both}
+  .nav-group[open] .nav-popover{animation:desk-reveal 160ms ease-out both}
+  dialog[open]{animation:desk-enter 180ms ease-out both}
+  .flashcard .answer,.flashcard .feedback,.ratings{animation:desk-reveal 220ms ease-out both}
+  button,.primary-link{transition:background-color 160ms ease,color 160ms ease,border-color 160ms ease,box-shadow 160ms ease,transform 160ms ease}
+  .catalogue-row>.ui-icon,.hero-cta .ui-icon,.primary-link .ui-icon{transition:transform 180ms cubic-bezier(.2,.65,.3,1)}
+  .catalogue-row:focus-within>.ui-icon{transform:translateX(3px)}
+  @media(hover:hover) and (pointer:fine){
+    .catalogue-row:hover>.ui-icon,.hero-cta:hover .ui-icon,.primary-link:hover .ui-icon{transform:translateX(3px)}
+    button.primary:hover,.hero-cta:hover,.primary-link:hover{transform:translateY(-1px);box-shadow:0 4px 12px #23384d12}
+    button.primary:active,.hero-cta:active,.primary-link:active{transform:translateY(0);box-shadow:none}
+  }
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}

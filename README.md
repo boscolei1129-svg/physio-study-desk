@@ -2,7 +2,9 @@
 
 A personal, browser-based study companion for the **2027 Adelaide University Bachelor of Physiotherapy (Honours), HPHYS**. Opens on Year 1, Semester 1. Independent and unofficial.
 
-Built in the chosen Editorial Collection direction: warm paper, forest green, a compact daily recall panel, quiet focus/activity column and numbered course catalogue. Responsive layouts and keyboard-accessible controls work across desktop, tablet and mobile.
+Built in the chosen Editorial Collection direction: warm paper, restrained ink tones, a compact daily recall panel, quiet focus/activity column and numbered course catalogue. Responsive layouts and keyboard-accessible controls work across desktop, tablet and mobile.
+
+The current selected palette is **Ink & Linen**: navy ink, warm linen, blue-grey surfaces and a restrained brass accent. Brief entrances, staggered catalogue rows, menu/answer reveals and gentle pointer hover responses add motion. Animations are finite and use opacity/transforms; `prefers-reduced-motion` disables animations and transitions. No study records or display scale change with the theme.
 
 ## Study tools
 
