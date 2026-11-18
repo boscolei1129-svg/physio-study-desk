@@ -1,5 +1,6 @@
+import {validateLearning} from './learning-core.mjs';
 export const DAY = 86400000;
-export const defaults = () => ({version:1,settings:{year:1,semester:1,stream:'professional',newLimit:12,timezone:'Australia/Adelaide'},schedule:{},mistakes:{},notes:[],customCards:[],tasks:[],history:[],stationLogs:[]});
+export const defaults = () => ({version:1,settings:{year:1,semester:1,stream:'professional',newLimit:12,timezone:'Australia/Adelaide'},schedule:{},mistakes:{},notes:[],customCards:[],tasks:[],history:[],stationLogs:[],learning:{guide:null,resume:null,recall:null,quiz:null}});
 export function dayKey(time=Date.now(),timezone='Australia/Adelaide') {
   return new Intl.DateTimeFormat('en-CA',{timeZone:timezone==='local'?Intl.DateTimeFormat().resolvedOptions().timeZone:timezone,year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(time));
 }
@@ -17,9 +18,9 @@ export function interleave(items) {
   const groups=new Map();for(const item of items){if(!groups.has(item.course))groups.set(item.course,[]);groups.get(item.course).push(item);}
   const result=[];while(result.length<items.length){for(const group of groups.values())if(group.length)result.push(group.shift());}return result;
 }
-export function selectStudyCards(cards,courses,settings,{course='',outcome=''}={}) {
+export function selectStudyCards(cards,courses,settings,{course='',outcome='',topic=''}={}) {
   const activeIds=new Set(courses.filter(c=>c.year===settings.year&&c.semester===settings.semester&&(c.stream==='both'||c.stream===settings.stream)).map(c=>c.id));
-  return cards.filter(c=>(course?c.course===course:activeIds.has(c.course))&&(!outcome||(c.course==='BIOL1006'&&String(c.outcome)===String(outcome))));
+  return cards.filter(c=>(course?c.course===course:activeIds.has(c.course))&&(!outcome||(c.course==='BIOL1006'&&String(c.outcome)===String(outcome)))&&(!topic||c.topic===topic));
 }
 export function reviewQueue(cards,state,now=Date.now()) {
   const today=dayKey(now,state.settings.timezone);
@@ -79,6 +80,7 @@ export function validateBackup(input) {
     out.history.push({type:h.type,at:h.at,...(h.card?{card:h.card}:{}),...(h.type==='recall'?{grade:h.grade,new:h.new}:{}),...(h.type==='quiz'?{correct:h.correct}:{}),...(h.type==='focus'?{minutes:h.minutes}:{})});
   }
   for(const l of input.stationLogs){assert(object(l)&&str(l.station,100)&&num(l.at)&&num(l.checked,20)&&num(l.total,20)&&l.checked<=l.total&&str(l.reflection),'Invalid practical reflection.');out.stationLogs.push({station:l.station,at:l.at,checked:l.checked,total:l.total,reflection:l.reflection});}
+  out.learning=validateLearning(input.learning);
   return out;
 }
 export function studyDay(time=Date.now(),timezone='Australia/Adelaide') {

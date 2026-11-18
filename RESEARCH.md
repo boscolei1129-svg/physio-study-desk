@@ -60,3 +60,13 @@ Clarifications incorporated before creating answers:
 - Implantation begins at the blastocyst stage rather than the undivided zygote. Checked against [OpenStax embryonic development](https://openstax.org/books/anatomy-and-physiology-2e/pages/28-2-embryonic-development).
 
 Variable secretion percentages, uncertain biochemical claims and forceful palpation directions were not converted into rote answers. Notes emphasise location, relationships, function and supervised practical learning. The PDF and its images remain local; only adapted learning content and source/page metadata are included in the app.
+
+## Guided study and diagram tools
+
+The 10/20/30-minute session budgets are interface estimates, not validated learning prescriptions. Recall ratings use the existing scheduler; quiz answers do not reschedule cards. Missed ideas link to the best matching seeded note by source page, outcome and topic terms; these are labelled related starting notes, rather than an assurance of complete course coverage.
+
+The bundled body-planes illustration is OpenStax *Anatomy and Physiology 2e*, Figure 1.14, from [Anatomical Terminology](https://openstax.org/books/anatomy-and-physiology-2e/pages/1-6-anatomical-terminology), CC BY 4.0. The image is unchanged; interactive label masks are an added practice layer. Attribution and the licence link appear beside the exercise. Personal uploaded pages stay private in the browser, outside the repository.
+
+The muscle template's optional worked supraspinatus example was checked against [NCBI Bookshelf: Anatomy, Shoulder and Upper Limb, Arm Abductor Muscles](https://www.ncbi.nlm.nih.gov/books/NBK537148/). It covers the supraspinous fossa, superior facet of the greater tubercle, assistance with abduction/stability and usual suprascapular C5–C6 supply. Its application prompt is an original model-based learning task, not a clinical examination procedure.
+
+PDF rendering follows [Mozilla PDF.js examples](https://mozilla.github.io/pdf.js/examples/), using the versioned local distribution and a same-origin worker. PDF scripts are not executed by this raster-only page workflow. Selecting a page saves its rendered image and user-created masks only when the user chooses Save & practise; normal study backups and diagram backups are separate.

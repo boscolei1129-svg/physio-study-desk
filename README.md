@@ -13,6 +13,11 @@ The current selected palette is **Ink & Linen**: navy ink, warm linen, blue-grey
 - Original starting notes with active-recall prompts; personal Cornell-style notes and custom flashcards.
 - Three fictional discussion and reasoning stations with self-checklists and saved reflections.
 - Focus timer, personal study tasks, progress summaries, JSON backup export/import and offline caching.
+- Guided 10/20/30-minute plans: Learn → Recall → Quiz → Review. Notes can be hidden for retrieval; due reviews come first and new cards respect the global daily limit. Session lengths are approximate, with no forced deadline.
+- Automatic resume for guided sessions and separate unfinished recall/quiz sessions, including drafts, revealed answers, question order and selected quiz choices. These records travel in the normal study backup; older version-1 backups still import.
+- Linked explanations and starting notes beside answers, plus a six-outcome Anatomy topic hub.
+- Muscle notes use location, proximal/distal attachments, action, innervation, application and source fields. Optional recall cards are generated from filled fields. A sourced supraspinatus example is included in the template.
+- Diagram practice includes an attributed OpenStax body-planes exercise. Open your own PDF or image, choose a page and add named label masks by dragging or entering percentages. Saved page images/masks use private browser IndexedDB, with separate diagram backup export/import; the original PDF is not stored or uploaded.
 - Four-year course map with both honours streams. Each pathway totals 192 units; every semester is 24 units.
 
 ## Coverage and research
@@ -33,7 +38,7 @@ Offline study works after a successful online load in a service-worker-capable b
 
 ## Development
 
-Requires Node.js 20+; there are no runtime dependencies or build step.
+Requires Node.js 20+; no package install or build step is needed. Mozilla PDF.js 6.5.438 is bundled locally for optional private PDF rendering, with its worker, renderer, fonts and licences in `vendor/pdfjs/`.
 
 ```sh
 npm start
