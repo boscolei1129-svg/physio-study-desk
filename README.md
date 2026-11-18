@@ -2,7 +2,7 @@
 
 A personal, browser-based study companion for the **2027 Adelaide University Bachelor of Physiotherapy (Honours), HPHYS**. Opens on Year 1, Semester 1. Independent and unofficial.
 
-Built in the chosen Study Desk direction: warm paper, forest green, a quiet daily dashboard, responsive layouts and keyboard-accessible controls.
+Built in the chosen Editorial Collection direction: warm paper, forest green, a compact daily recall panel, quiet focus/activity column and numbered course catalogue. Responsive layouts and keyboard-accessible controls work across desktop, tablet and mobile.
 
 ## Study tools
 

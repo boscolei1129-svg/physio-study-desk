@@ -1,5 +1,5 @@
-const CACHE='physio-study-desk-v4-premium';
-const ASSETS=['./','./index.html','./styles.css','./premium.css','./app.mjs','./core.mjs','./content.mjs','./anatomy100.mjs','./icon.svg','./manifest.webmanifest','./assets/recall-paper.png',
+const CACHE='physio-study-desk-v5-collection';
+const ASSETS=['./','./index.html','./styles.css','./premium.css','./collection.css','./app.mjs','./core.mjs','./content.mjs','./anatomy100.mjs','./icon.svg','./manifest.webmanifest','./assets/recall-paper.png','./assets/editorial-paper.png',
   ...['DMSans-400','DMSans-500','DMSans-600','Newsreader-400','Newsreader-500'].map(name=>'./assets/fonts/'+name+'.ttf'),
   ...['arrow-right','arrow-up-right','arrow-counter-clockwise','caret-down','x','book-open','cards','check-square','clock-counter-clockwise','notebook','clipboard-text','books','calendar-blank','chart-bar','gear','house','plus'].map(name=>'./assets/icons/'+name+'.svg')];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting())));
