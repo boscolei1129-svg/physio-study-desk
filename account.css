@@ -36,3 +36,24 @@
   margin-top: 12px;
   border-top: 1px solid var(--line);
 }
+.sync-summary {
+  margin: 18px 0;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+}
+.sync-summary p {
+  margin: 8px 0 0;
+}
+.sync-badge {
+  font-size: 13px;
+}
+[data-sync-state="synced"] {
+  color: #305847;
+}
+[data-sync-state="pending"], [data-sync-state="review"], [data-sync-state="offline"] {
+  color: #70501a;
+}
+[data-sync-state="error"], [data-sync-state="local-error"] {
+  color: #8c322c;
+}

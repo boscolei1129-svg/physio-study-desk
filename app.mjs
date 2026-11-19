@@ -45,7 +45,36 @@ function selectedPool(params=route().params){return selectStudyCards(allCards(),
 function outcomeOptions(id,params=route().params){if(params.get('course')!=='BIOL1006')return '';return `<select id="${id}" aria-label="Anatomy learning outcome"><option value="">All Anatomy outcomes</option>${anatomyOutcomes.map(o=>`<option value="${o.id}" ${params.get('outcome')===String(o.id)?'selected':''}>Outcome ${o.id} · ${esc(o.title)}</option>`).join('')}</select>`;}
 function anatomySummary(){const pdfCards=seedCards.filter(c=>c.pack==='anatomy100-pdf');return `<section class="panel anatomy-pack"><span class="eyebrow">YOUR UPLOADED ANATOMY 100 PDF</span><h2 style="font-family:Georgia;font-weight:400">Six learning outcomes, ready to study.</h2><p class="small muted">${pdfCards.length} new recall cards, ${pdfCards.filter(c=>c.wrong.length===3).length} quiz questions and ${lessons.filter(l=>l.pack==='anatomy100-pdf').length} notes from your 30-page PDF. Page references appear beside each answer. Important clarifications have additional verification links.</p><div class="card-list">${anatomyOutcomes.map(o=>`<article class="course-row"><div><span class="eyebrow">OUTCOME ${o.id} · PDF pp. ${o.pages}</span><h3>${esc(o.title)}</h3><span class="coverage muted">${pdfCards.filter(c=>c.outcome===o.id).length} recall cards</span></div><button data-action="study-outcome" data-mode="recall" data-outcome="${o.id}">Recall</button><button data-action="study-outcome" data-mode="quiz" data-outcome="${o.id}">Quiz</button><button data-action="study-outcome" data-mode="notes" data-outcome="${o.id}">Notes</button></article>`).join('')}</div><p class="small muted">Adapted study notes, not an authenticated official lecture pack. Original diagrams stay in your PDF; practical skills require your taught lab procedures.</p></section><div class="spacer"></div>`;}
 function notify(message){clearTimeout(toastTimeout);$('#toast').textContent=message;$('#toast').classList.add('visible');toastTimeout=setTimeout(()=>$('#toast').classList.remove('visible'),4200);}
-function save(){if(storageBlocked){$('#save-status').textContent='! Not saved — see Settings';return false;}try{if(localStorage.getItem(KEY)!==lastPersisted){storageBlocked=true;loadError='Another tab has newer saved data. Reload to use it, or export this tab’s data before restoring a backup.';$('#save-status').textContent='! Another tab changed data — reload';notify(loadError);return false;}state.history=state.history.slice(-50000);const next=JSON.stringify(state);localStorage.setItem(KEY,next);lastPersisted=next;$('#save-status').textContent='Saved on this device';cloudAccount.localSaved();return true;}catch{$('#save-status').textContent='! Not saved — export a backup';notify('Device storage is unavailable or full. Export a backup in Settings.');return false;}}
+function save(){
+  if(storageBlocked){
+    $('#save-status').textContent='! Not saved — see Settings';
+    cloudAccount.localSaveFailed();
+    return false;
+  }
+  try{
+    if(localStorage.getItem(KEY)!==lastPersisted){
+      storageBlocked=true;
+      loadError='Another tab has newer saved data. Reload to use it, or export this tab’s data before restoring a backup.';
+      $('#save-status').textContent='! Another tab changed data — reload';
+      cloudAccount.localSaveFailed();
+      notify(loadError);
+      return false;
+    }
+    state.history=state.history.slice(-50000);
+    const next=JSON.stringify(state);
+    const changed=next!==lastPersisted;
+    if(changed)localStorage.setItem(KEY,next);
+    lastPersisted=next;
+    $('#save-status').textContent='Saved on this device';
+    if(changed)cloudAccount.localSaved();
+    return true;
+  }catch{
+    $('#save-status').textContent='! Not saved — export a backup';
+    cloudAccount.localSaveFailed();
+    notify('Device storage is unavailable or full. Export a backup in Settings.');
+    return false;
+  }
+}
 function go(page,params={}){const q=new URLSearchParams(params).toString();location.hash=page+(q?'?'+q:'');}
 function route(){const [page='today',query='']=(location.hash.slice(1)||'today').split('?');return {page,params:new URLSearchParams(query)};}
 function scopeControls(){return `<div class="scope"><select id="scope-year" aria-label="Study year">${[1,2,3,4].map(y=>`<option value="${y}" ${state.settings.year===y?'selected':''}>Year ${y}</option>`).join('')}</select><select id="scope-semester" aria-label="Study semester">${[1,2].map(s=>`<option value="${s}" ${state.settings.semester===s?'selected':''}>Semester ${s}</option>`).join('')}</select></div>`;}
@@ -173,7 +202,7 @@ document.addEventListener('submit',e=>{const f=e.target;if(!['note-form','card-f
 });
 async function offlineStatus(){const el=$('#offline-status');if(!el)return;el.textContent='serviceWorker' in navigator?(navigator.serviceWorker.controller?'Offline cache active on this device.':'Offline cache will become active after the first successful load.'): 'Offline installation is not supported in this browser.';}
 if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js').then(()=>offlineStatus()).catch(()=>{if($('#offline-status'))$('#offline-status').textContent='Offline cache unavailable. The app still works online.';});
-window.addEventListener('storage',e=>{if(e.key===KEY){storageBlocked=true;loadError='Study data changed in another tab. Reload before continuing, or export this tab’s data first.';$('#save-status').textContent='! Another tab changed data — reload';notify(loadError);}});
+window.addEventListener('storage',e=>{if(e.key===KEY){storageBlocked=true;loadError='Study data changed in another tab. Reload before continuing, or export this tab’s data first.';$('#save-status').textContent='! Another tab changed data — reload';cloudAccount.localSaveFailed();notify(loadError);}});
 function renderPrivacy(){main.innerHTML=heading('Study Desk privacy')+`<section class="panel cloud-account"><h2>Your study records</h2><p>Study Desk saves your notes, cards, review history, quizzes, tasks, settings and unfinished sessions in this browser. Google sign-in is optional. If you enable sync, those records are sent directly to a private app folder in your Google Drive. GitHub Pages serves the app.</p><h2>Google account access</h2><p>Study Desk uses your Drive account identifier and available display name or email to identify the connected account. The app requests access to its own Google Drive app data. The short-lived access token is held in the current page. Older sync versions are retained to protect against simultaneous edits.</p><h2>Control your copies</h2><p>Sign out in Account &amp; sync to stop syncing in this tab. To remove cloud saves, use Google Drive’s Manage Apps settings to delete Study Desk’s hidden app data. Local copies can be backed up in Settings &amp; backup and removed by clearing this site’s browser data. Diagram exercises and PDFs are stored separately on this device.</p><a href="#account">Back to Account &amp; sync</a></section>`;}
 const cloudAccount=createCloudAccount({
   esc,heading,notify,exportBackup,
@@ -195,7 +224,7 @@ const cloudAccount=createCloudAccount({
   }
 });
 const learningTools=createLearningTools({$: $,esc,main,heading,courses,lessons,sources,anatomyOutcomes,allCards,cardById,sourceLink,save,render,go,notify,openModal,icon,reviewQueue,scheduleCard,recordMistake,currentCards,state:()=>state,resumeSession,showLesson:id=>{const l=lessons.find(l=>l.id===id);noteTab='library';go('notes',{course:l.course,lesson:id});},showPersonalNotes:()=>{noteTab='personal';go('notes');render();}});
-render();if(loadError)notify(loadError);
+render();void cloudAccount.initialize();if(loadError)notify(loadError);
 
 document.addEventListener('click',event=>{for(const menu of document.querySelectorAll('.nav-group[open],.about-desk[open]'))if(!menu.contains(event.target))menu.open=false;});
 document.addEventListener('keydown',event=>{if(event.key==='Escape')for(const menu of document.querySelectorAll('.nav-group[open],.about-desk[open]')){menu.open=false;menu.querySelector('summary').focus();}});
