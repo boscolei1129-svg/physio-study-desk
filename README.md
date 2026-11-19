@@ -32,9 +32,9 @@ See [RESEARCH.md](RESEARCH.md) for scope, course mapping, access limits and attr
 
 ## Use and storage
 
-Open the published GitHub Pages app. No login is needed. Study records are kept in **this browser's localStorage**, not in the GitHub repository. They are not synchronised across devices. Use **Settings & backup → Export backup** regularly. Import that file on another device to transfer the data; import replaces the destination's existing records after confirmation.
+Study Desk works without signing in and saves records in this browser. With Google sync configured, **More → Account & sync** connects the app to private Google Drive app storage. See [Google sync setup](GOOGLE-SYNC.md) for the one-time app registration. Use **Settings & backup → Export backup** for a portable copy. Import asks before replacing destination records.
 
-The app makes no analytics or AI API calls and needs no secrets. External links open source websites. Keep patient information and identifiable placement details out of personal notes. Browser profiles and private browsing have separate storage. Clearing site data can remove records.
+The app makes no analytics or AI API calls. Google sync sends study records directly to Google Drive after you sign in and grant access. External links open source websites. Keep patient information and identifiable placement details out of personal notes. Browser profiles and private browsing have separate storage. Clearing site data can remove records.
 
 Offline study works after a successful online load in a service-worker-capable browser. External readings require a connection. The focus timer survives route changes and accounts for background tab throttling, but resets on full page reload.
 

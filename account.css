@@ -1,0 +1,38 @@
+.cloud-account {
+  max-width: 720px;
+}
+.cloud-account > p {
+  max-width: 65ch;
+  line-height: 1.7;
+}
+.cloud-account details {
+  margin: 18px 0;
+}
+.cloud-account summary {
+  cursor: pointer;
+}
+.cloud-account .cloud-google {
+  display: inline-flex;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  line-height: 0;
+}
+.cloud-google img {
+  width: 178px;
+  max-width: 100%;
+  height: auto;
+}
+.cloud-choices {
+  margin: 18px 0;
+}
+.cloud-version {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-top: 12px;
+  margin-top: 12px;
+  border-top: 1px solid var(--line);
+}
