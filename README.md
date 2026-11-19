@@ -18,6 +18,7 @@ The current selected palette is **Ink & Linen**: navy ink, warm linen, blue-grey
 - Linked explanations and complete lessons beside answers, plus a six-outcome Anatomy topic hub.
 - Muscle notes use location, proximal/distal attachments, action, innervation, application and source fields. Optional recall cards are generated from filled fields. A sourced supraspinatus example is included in the template.
 - Diagram practice includes an attributed OpenStax body-planes exercise. Open your own PDF or image, choose a page and add named label masks by dragging or entering percentages. Saved page images/masks use private browser IndexedDB, with separate diagram backup export/import; the original PDF is not stored or uploaded.
+- **Scan to Study** turns a PNG, JPEG or WebP slide screenshot into editable notes with automatic titles, headings and bullets. It suggests label covers using detected text positions. Review the notes or covers against the image before saving. The English OCR model loads on first use and processes the image in the browser. To scan a PDF, open a page in Diagram practice and select Scan to Study.
 - Four-year course map with both honours streams. Each pathway totals 192 units; every semester is 24 units.
 
 ## Coverage and research

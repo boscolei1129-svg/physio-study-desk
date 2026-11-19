@@ -1,0 +1,60 @@
+.scan-entry {
+  margin-bottom: 22px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+.scan-entry label {
+  margin-top: 0;
+  font-family: Newsreader, Georgia, serif;
+  font-size: 25px;
+  font-weight: 400;
+}
+.scan-entry p {
+  margin: 6px 0 13px;
+}
+.scan-actions {
+  margin: 12px 0;
+}
+#scan-progress:empty {
+  display: none;
+}
+.scan-notes details {
+  margin: 14px 0;
+}
+.scan-notes summary {
+  cursor: pointer;
+  font-size: 13px;
+}
+.scan-preview {
+  padding: 13px 16px;
+  margin-top: 9px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+}
+.formatted-note {
+  overflow-wrap: anywhere;
+}
+.formatted-note h3 {
+  font-family: Newsreader, Georgia, serif;
+  font-size: 1.36rem;
+  font-weight: 400;
+  margin: 1.05em 0 .35em;
+}
+.formatted-note > :first-child {
+  margin-top: 0;
+}
+.formatted-note > :last-child {
+  margin-bottom: 0;
+}
+.formatted-note p, .formatted-note li {
+  line-height: 1.75;
+  white-space: pre-wrap;
+}
+.formatted-note p {
+  margin: 0 0 .75em;
+}
+.formatted-note ul {
+  margin: .45em 0 1em;
+  padding-left: 1.35em;
+}
