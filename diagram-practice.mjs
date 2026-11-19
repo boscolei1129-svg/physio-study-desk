@@ -68,7 +68,7 @@ export function createDiagramPractice(ctx){
         $('#mask-answer').focus();
       }
       if(a==='mask-remove'&&active){editingMask=null;active.labels.splice(Number(b.dataset.index),1);render();}
-      if(a==='diagram-save'&&active){active.title=$('#diagram-title').value.trim()||'My diagram';await put(active);editing=false;revealed.clear();notify('Diagram and masks saved privately on this device.');render();}
+      if(a==='diagram-save'&&active){active.title=$('#diagram-title').value.trim()||'My diagram';if(active.id===example.id){const copy={...active,id:'diagram-'+crypto.randomUUID()};await put(copy);Object.assign(active,validateDiagram(copy));}else await put(active);editing=false;revealed.clear();notify('Diagram and masks saved privately on this device.');render();}
       if(a==='diagram-export'){const records=await list(),body=JSON.stringify({version:1,diagrams:records});if(body.length>30000000)throw new Error('Your diagrams exceed the 30 MB export limit.');const url=URL.createObjectURL(new Blob([body],{type:'application/json'}));const link=document.createElement('a');link.href=url;link.download='physio-diagrams-backup.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
     }catch(error){notify(error.message);}
   });

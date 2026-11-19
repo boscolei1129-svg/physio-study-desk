@@ -55,7 +55,9 @@ const sizeOf = line => line.box.y1 - line.box.y0;
 const clamp = (value, max) => Math.max(0, Math.min(max, value));
 
 export function formatScan({text = '', lines = [], width, height}) {
-  const reliable = lines.filter(line => line.confidence >= 40 || /[A-Za-z]{3,}/.test(line.text));
+  // Text over a busy illustration often includes isolated lines and strokes read as stray glyphs.
+  const reliable = lines.filter(line => /[A-Za-z]{3,}/.test(line.text) ||
+    (line.confidence >= 55 && /[\dA-Za-z]/.test(line.text) && line.text.trim().length >= 2));
   if (reliable.length) lines = reliable;
   const sized = lines.map(sizeOf).sort((a, b) => a - b);
   const normalSize = sized[Math.floor(sized.length / 2)] || 0;
@@ -84,7 +86,7 @@ export function formatScan({text = '', lines = [], width, height}) {
     const short = value.length <= 75 && value.split(' ').length <= 9;
     if (bullet.test(value)) {
       blocks.push({kind: 'bullet', text: value.replace(bullet, '')});
-    } else if (short && (value.endsWith(':') || line.box && sizeOf(line) >= normalSize * 1.25 && !/[.!?]$/.test(value))) {
+    } else if (short && /[a-z]{3}/i.test(value) && (value.endsWith(':') || line.box && sizeOf(line) >= normalSize * 1.25 && !/[.!?]$/.test(value))) {
       blocks.push({kind: 'heading', text: value.replace(/:$/, '')});
     } else {
       const priorBlock = blocks.at(-1);
