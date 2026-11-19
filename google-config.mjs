@@ -1,2 +1,2 @@
-// Public web client ID. Leave empty until Google Cloud has registered this deployment.
-export const googleClientId = '';
+// Public OAuth client registered for the Study Desk GitHub Pages origin.
+export const googleClientId = '815109496913-0rjjqnggac42eo1ndtar7id21r1mtmhk.apps.googleusercontent.com';
